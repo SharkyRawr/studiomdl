@@ -3,8 +3,6 @@ name: Makefile CI
 on:
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
 
 jobs:
   build-windows:
@@ -48,5 +46,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: build/bin-i386/studiomdl.gz
-        asset_name: studiomdl.gz
+        asset_name: studiomdl-ubuntu-latest-i386.gz
         asset_content_type: application/gzip
