@@ -227,13 +227,15 @@ double I_FloatTime (void)
 #endif
 }
 
+#include <unistd.h>
+
 void Q_getwd (char *out)
 {
 #ifdef WIN32
    _getcwd (out, 256);
    strcat (out, "\\");
 #else
-   getwd (out);
+   getcwd (out, 256);
 #endif
 }
 

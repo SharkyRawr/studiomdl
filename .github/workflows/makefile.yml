@@ -7,12 +7,16 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
-
+  build-windows:
     runs-on: windows-latest
-
     steps:
     - uses: actions/checkout@v3
-
     - name: Compile
       run: make
+
+  build-linux-i386:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Compile
+      run: make ARCH=-m32

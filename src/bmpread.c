@@ -3,6 +3,8 @@
 #include <STDIO.H>
 #endif
 
+#include <string.h>
+
 #if !defined( _WIN32 )
 #include <stdio.h>
 #include <stdlib.h>

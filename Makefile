@@ -36,11 +36,11 @@ CC=gcc
 
 ARCH?=-m32
 USER_FLAGS=
-CFLAGS=-Wint-to-pointer-cast $(USER_FLAGS)
+CFLAGS=-Wint-to-pointer-cast $(USER_FLAGS) -ggdb
 
 # Link math library on Linux
 ifeq ($(OS),Linux)
-	CFLAGS+=-lm
+	LDFLAGS+=-lm
 endif
 
 ifeq ($(ARCH),-m32)
@@ -59,7 +59,7 @@ ifeq ($(OS),Darwin)
 	OSX_VERSION := $(shell sw_vers -productVersion)
 	DEVELOPER_DIR := $(shell /usr/bin/xcode-select -print-path)
 	SDK_DIR := $(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs
-	SDKROOT ?= $(SDK_DIR)/MacOSX10.12.sdk
+	SDKROOT ?= $(SDK_DIR)/MacOSX13.sdk
 
 	CFLAGS += -Qunused-arguments -isysroot $(SDKROOT) -mmacosx-version-min=10.9
 endif
@@ -94,10 +94,10 @@ studiomdl.log: $(COMMON_SOURCES) $(addprefix studiomdl$(PATHSEP), $(STUDIOMDL_SO
 	$(CPPCHECK) $(COMMON_DEFINES) $(STUDIOMDL_DEFINES) $(CPPCHECKFLAGS) studiomdl 2>$@
 
 $(BIN_DIR)/studiomdl$(EXE): $(STUDIOMDL_OBJECTS)
-	$(CC) $(OPTS) $(STUDIOMDL_OBJECTS) $(STUDIOMDL_COMMON_OBJECTS) -o $@
+	$(CC) $(OPTS) $(STUDIOMDL_OBJECTS) $(STUDIOMDL_COMMON_OBJECTS) -o $@ $(LDFLAGS)
 
 $(BUILD_DIR)/%.o : src/%.c
-	$(CC) -c $(OPTS) $(COMMON_DEFINES) $(STUDIOMDL_DEFINES) $(INCLUDE_DIRS) $< -o $@
+	$(CC) -c $(OPTS) $(COMMON_DEFINES) $(STUDIOMDL_DEFINES) $(INCLUDE_DIRS) $< -o $@ $(LDFLAGS)
 
 clean:
 	-$(RMR) $(foreach target,$(TARGETS),$(BUILD_DIR)$(PATHSEP)$(target) )
