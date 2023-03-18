@@ -15,6 +15,7 @@ jobs:
       run: make
 
   build-linux-i386:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
