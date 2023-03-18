@@ -3,6 +3,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install -y build-essential make
 WORKDIR /src
 COPY . /src/
-RUN make ARCH="-m32" && cp -vf /src/build/bin-i386/studiomdl /usr/local/bin
+RUN make ARCH="-m32" && cp -vf /src/build/bin-i386/studiomdl /usr/local/bin && make ARCH="-m32" clean && cd / && rm -Rf /src
 WORKDIR /data
 ENTRYPOINT [ "/usr/local/bin/studiomdl" ]

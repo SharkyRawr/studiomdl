@@ -18,7 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: GCC Multilib
-      run: export DEBIAN_FRONTEND=noninteractive && apt update && apt install -y gcc-multilib
+    - uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: gcc-multilib
+        version: 1.0
     - name: Compile
       run: make ARCH=-m32
